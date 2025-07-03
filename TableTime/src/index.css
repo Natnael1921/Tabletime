@@ -2,9 +2,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  margin-bottom: 100px;
   z-index: 999;
+  color: rgb(254, 254, 254);
+  height: 65px;
+  box-shadow: 0 0 10px rgb(54, 53, 53);
+  background-color: rgb(156, 95, 3);
 }
 
 .nav ul {
@@ -19,15 +27,15 @@
   text-decoration: none;
   color: var(--color-light--2);
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 500;
 }
-.logo-container{
-display: flex;
-color: white;
-font-size: 26px;
+.logo-container {
+  display: flex;
+  color: white;
+  font-size: 26px;
 }
 .nav a.active {
-  color: orange;
+  color: rgb(16, 10, 0);
 }
 .logo-image {
   margin-right: 20px;
@@ -51,17 +59,18 @@ font-size: 26px;
   width: 70px;
   border-radius: 6px;
   color: white;
-  background-color: rgb(249, 169, 21);
+  background-color: rgb(47, 32, 5);
+  cursor: pointer;
 }
 .home h1,
 h4 {
   text-align: center;
 }
-.home h1{
+.home h1 {
   font-size: 55px;
   font-family: "Pacifico";
   letter-spacing: 6px;
-
+  padding-top: 60px;
 }
 .home {
   height: 40vh;
@@ -70,39 +79,39 @@ h4 {
   background-image: url("public/background.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position:center center	;
-   
+  background-position: center center;
+  height: 100vh;
 }
 .how-it-works {
-  padding: 2rem;
-  pointer-events: none;  backdrop-filter: blur(5px);
+  padding: 3rem;
+  pointer-events: none;
+  backdrop-filter: blur(5px);
   border: 1px solid rgb(144, 144, 144);
-  margin-top: 30px;
-
+  margin-top: 90px;
 }
-.home-nav{
+.home-nav {
   margin-left: 430px;
 }
-.home span{
+.home span {
   text-align: center;
   margin: 40px;
   border: 1px solid;
-  padding: 8PX;
+  padding: 8px;
   background-color: rgb(87, 64, 44);
   border-radius: 6px;
   cursor: pointer;
 }
-.home span:hover{
+.home span:hover {
   background-color: white;
   color: black;
 }
-h4{
+h4 {
   word-spacing: px;
 }
 h2 {
   text-align: center;
 }
-body{
+body {
   color: white;
   margin: 0;
   background-color: black;
@@ -111,4 +120,48 @@ body{
   display: flex;
   justify-content: space-around;
   margin-top: 1rem;
+}
+.top-restaurants {
+  padding: 3rem;
+}
+.top-restaurants-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+  gap: 20px;
+}
+.top-restaurants-card {
+  border: 1px solid #3d3c3c;
+  padding: 1rem;
+  width: 30%;
+}
+.top-restaurants-card p {
+  text-align: center;
+}
+.top-restaurants-card:hover {
+  background-color: rgba(252, 166, 7, 0.1);
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.delivery-container {
+  display: flex;
+  align-items: center;
+}
+.pricing {
+  margin-left: 100px;
+}
+.pricing ul {
+  list-style-type: none;
+}
+.delivery-container p {
+  width: 400px;
+  margin-left: 200px;
+}
+.top-restaurants {
+  background-color: white;
+  color: black;
+}
+.register-button {
+  margin-right: 20px;
 }

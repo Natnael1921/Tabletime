@@ -26,7 +26,7 @@ export function PageNav() {
         </li>
         <li>
           <NavLink to="/about">
-            <button className="login-register-button">Register</button>
+            <button className="login-register-button register-button">Register</button>
           </NavLink>
         </li>
       </ul>
