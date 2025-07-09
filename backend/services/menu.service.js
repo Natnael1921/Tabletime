@@ -16,8 +16,14 @@ async function createMenuItem(restaurantId, name, price, photo_url) {
 	await db.query(sql, [restaurantId, name, price, photo_url || null]);
 }
 
-
+async function deleteMenuItem(id) {
+  const sql = "DELETE FROM menu_items WHERE id = ?";
+  await db.query(sql, [id]);
+}
 module.exports = {
-	getMenuByRestaurantId,
-	createMenuItem
+  getMenuByRestaurantId,
+  createMenuItem,
+  deleteMenuItem
 };
+
+

@@ -61,9 +61,25 @@ export function RestaurantMenuPage() {
     }
   }
 
-  function handleDeleteItem(id) {
-    setMenuItems((prev) => prev.filter((item) => item.id !== id));
+async function handleDeleteItem(id) {
+  try {
+    const res = await fetch(`http://localhost:4000/api/menu/${id}`, {
+      method: "DELETE",
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      setMenuItems((prev) => prev.filter((item) => item.id !== id));
+    } else {
+      alert("Failed to delete: " + data.message);
+    }
+  } catch (err) {
+    console.error("Delete failed:", err);
+    alert("Could not delete menu item.");
   }
+}
+
 
   return (
     <div className="menu-management" style={{ padding: "2rem" }}>

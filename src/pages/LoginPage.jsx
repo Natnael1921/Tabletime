@@ -25,6 +25,7 @@ export function LoginPage({
       name: form.name?.value,
       email: form.email.value,
       password: form.password.value,
+      role,
     };
     if (isRegistering && role === "owner") {
       payload.location = form.location.value;
