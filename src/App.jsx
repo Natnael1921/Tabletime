@@ -13,14 +13,11 @@ import { RestaurantMenuPage } from "./pages/RestaurantMenuPage";
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState("");
-  const [orders, setOrders] = useState([]); // 🔥 Centralized order state
-
-  // Handle placing a new order
+  const [orders, setOrders] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(null);
   function handlePlaceOrder(order) {
     setOrders((prev) => [...prev, order]);
   }
-
-  // Handle accepting an order by ID
   function handleAcceptOrder(orderId) {
     setOrders((prev) =>
       prev.map((order) =>
@@ -31,10 +28,23 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <PageNav isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} userRole={userRole} />
+      <PageNav
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        userRole={userRole}
+      />
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route
+          path="/"
+          element={
+            <HomePage
+              isLoggedIn={isLoggedIn}
+              userRole={userRole}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          }
+        />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route
@@ -43,6 +53,7 @@ export default function App() {
             <RestaurantsPage
               isLoggedIn={isLoggedIn}
               handlePlaceOrder={handlePlaceOrder}
+              userId={loggedInUser?.id}
             />
           }
         />
@@ -50,9 +61,15 @@ export default function App() {
           path="/orders"
           element={
             isLoggedIn && userRole === "user" ? (
-              <OrdersPage orders={orders} />
+              <OrdersPage orders={orders} userId={loggedInUser?.id} />
             ) : (
-              <LoginPage setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />
+              <LoginPage
+                isLoggedIn={isLoggedIn}
+                setIsLoggedIn={setIsLoggedIn}
+                userRole={userRole}
+                setUserRole={setUserRole}
+                setLoggedInUser={setLoggedInUser}
+              />
             )
           }
         />
@@ -60,9 +77,17 @@ export default function App() {
           path="/restaurant-orders"
           element={
             isLoggedIn && userRole === "owner" ? (
-              <RestaurantOrdersPage orders={orders} onAccept={handleAcceptOrder} />
+              <RestaurantOrdersPage
+                orders={orders}
+                onAccept={handleAcceptOrder}
+                ownerId={loggedInUser?.id}
+              />
             ) : (
-              <LoginPage setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />
+              <LoginPage
+                setIsLoggedIn={setIsLoggedIn}
+                setUserRole={setUserRole}
+                setLoggedInUser={setLoggedInUser}
+              />
             )
           }
         />
@@ -72,13 +97,25 @@ export default function App() {
             isLoggedIn && userRole === "owner" ? (
               <RestaurantMenuPage />
             ) : (
-              <LoginPage setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />
+              <LoginPage
+                setIsLoggedIn={setIsLoggedIn}
+                setUserRole={setUserRole}
+                setLoggedInUser={setLoggedInUser}
+              />
             )
           }
         />
-        <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} setUserRole={setUserRole} />} />
+        <Route
+          path="/login"
+          element={
+            <LoginPage
+              setIsLoggedIn={setIsLoggedIn}
+              setUserRole={setUserRole}
+              setLoggedInUser={setLoggedInUser}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
 }
-

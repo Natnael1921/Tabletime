@@ -8,7 +8,7 @@ export function ContactPage() {
     message: "",
   });
 
-  const [status, setStatus] = useState(null); // success / error message
+  const [status, setStatus] = useState(null); 
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -19,7 +19,7 @@ export function ContactPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://your-backend-domain.com/api/contact", {
+      const res = await fetch("https://table-time-uwi8.onrender.com/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export function ContactPage() {
       const data = await res.json();
 
       if (res.ok) {
-        setStatus("✅ Message sent successfully!");
+        setStatus("Message sent successfully!");
         setFormData({ name: "", email: "", message: "" });
       } else {
         setStatus(" Failed to send message.");

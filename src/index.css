@@ -90,7 +90,7 @@ h4 {
   margin-top: 90px;
 }
 .home-nav {
-  margin-left: 430px;
+  margin-left:10px;
 }
 .home span {
   text-align: center;
@@ -111,64 +111,158 @@ h4 {
 h2 {
   text-align: center;
 }
+/* General */
 body {
   color: white;
   margin: 0;
   background-color: rgb(248, 242, 242);
 }
+
+/* Home Page */
+.home-page {
+  background-image: url("public/background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+/* Home Banner */
+.home {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home h1 {
+  font-size: 55px;
+  font-family: "Pacifico", cursive;
+  letter-spacing: 6px;
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.home-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.home span {
+  text-align: center;
+  margin: 10px;
+  border: 1px solid;
+  padding: 8px 16px;
+  background-color: rgb(87, 64, 44);
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.home span:hover {
+  background-color: white;
+  color: black;
+}
+
+/* How It Works Section */
+.how-it-works {
+  backdrop-filter: blur(5px);
+  border: 1px solid rgb(144, 144, 144);
+  background-color: rgba(36, 36, 36, 0.3);
+  color: white;
+  margin-top: 70px;
+}
+
 .how-it-works-texts {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   margin-top: 1rem;
+  gap: 20px;
 }
-.restaurant-orders {
-  color: #000;
-  margin-top: 80px;
+
+.how-it-works-texts div {
+  width: 250px;
+  text-align: center;
 }
+
+/* Top Restaurants */
 .top-restaurants {
   padding: 3rem;
+  background-color: white;
+  color: black;
 }
+
 .top-restaurants-container {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   margin-top: 2rem;
   gap: 20px;
 }
+
 .top-restaurants-card {
   border: 1px solid #3d3c3c;
   padding: 1rem;
   width: 30%;
-}
-.top-restaurants-card p {
+  min-width: 250px;
+  box-sizing: border-box;
   text-align: center;
 }
+
 .top-restaurants-card:hover {
   background-color: rgba(252, 166, 7, 0.1);
   border: 1px solid black;
   cursor: pointer;
 }
 
+/* Delivery Section */
+.delivery-and-pricing {
+  background-color: #555;
+  color: white;
+  padding: 3rem;
+}
+
 .delivery-container {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
 }
-.pricing {
-  margin-left: 100px;
+
+.delivery-container p {
+  max-width: 500px;
+  line-height: 1.6;
 }
+
 .pricing ul {
   list-style-type: none;
+  padding-left: 0;
+  margin: 0.5rem 0;
 }
-.delivery-container p {
-  width: 400px;
-  margin-left: 200px;
+
+.pricing li {
+  background-color: #444;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
 }
-.top-restaurants {
-  background-color: white;
-  color: black;
+
+/* Footer */
+.footer {
+  padding: 2rem;
+  background-color: #222;
+  text-align: center;
+  color: #fff;
+  margin-top: auto;
 }
-.register-button {
-  margin-right: 20px;
-}
+
 
 /*Auth*/
 
@@ -295,6 +389,9 @@ button:hover {
 .restaurant-card.selected {
   background-color: rgba(250, 235, 215, 0.5);
 }
+.restaurant-orders{
+  color: black;
+}
 .search-bar {
   width: 270px;
   padding: 0.6rem 0.8rem;
@@ -345,7 +442,7 @@ button:hover {
   margin-left: 19px;
 }
 .menu-images {
-  height: 120px;
+  height: 90px;
   width: 140px;
   object-fit: cover;
   border-radius: 10px;

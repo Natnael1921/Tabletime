@@ -1,11 +1,14 @@
 import React from "react";
 import { PageNav } from "../components/PageNav";
-export function HomePage() {
+
+export function HomePage({ isLoggedIn, userRole, setIsLoggedIn }) {
   return (
     <div className="home-page">
-      <div>
-        <PageNav />
-      </div>
+      <PageNav
+        isLoggedIn={isLoggedIn}
+        userRole={userRole}
+        setIsLoggedIn={setIsLoggedIn}
+      />
 
       <div className="home">
         <h1>
@@ -85,14 +88,7 @@ export function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer
-        style={{
-          padding: "2rem",
-          textAlign: "center",
-          backgroundColor: "#222",
-          color: "#fff",
-        }}
-      >
+      <footer className="footer">
         <p>
           &copy; {new Date().getFullYear()} TableTime Foods. All rights
           reserved.

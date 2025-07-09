@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { PageNav } from "../components/PageNav";
 import { useNavigate } from "react-router-dom";
 
-export function LoginPage({ setIsLoggedIn, setUserRole }) {
+export function LoginPage({
+  setIsLoggedIn,
+  setUserRole,
+  setLoggedInUser,
+  isLoggedIn,
+  userRole,
+}) {
   const [isRegistering, setIsRegistering] = useState(false);
   const [role, setRole] = useState("user");
   const navigate = useNavigate();
@@ -20,6 +26,9 @@ export function LoginPage({ setIsLoggedIn, setUserRole }) {
       email: form.email.value,
       password: form.password.value,
     };
+    if (isRegistering && role === "owner") {
+      payload.location = form.location.value;
+    }
 
     const API_BASE_URL = "http://localhost:4000/api";
     const endpoint = isRegistering
@@ -37,24 +46,27 @@ export function LoginPage({ setIsLoggedIn, setUserRole }) {
       .then((data) => {
         console.log("RESPONSE:", data);
 
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          setIsLoggedIn(true);
-          setUserRole(role);
-
-          alert(
-            isRegistering
-              ? "Registered successfully!"
-              : "Logged in successfully!"
-          );
-
-          if (role === "owner") {
-            navigate("/restaurant-menu");
+        if (isRegistering) {
+          if (data.status === "success") {
+            alert("Registered successfully!");
+            setIsRegistering(false);
           } else {
-            navigate("/restaurants");
+            alert("Registration failed.");
           }
         } else {
-          alert("Something went wrong.");
+          if (data.token) {
+            localStorage.setItem("token", data.token);
+            setIsLoggedIn(true);
+            setUserRole(role);
+            setLoggedInUser(data.user);
+            if (role === "owner" && data.restaurant) {
+              localStorage.setItem("restaurantId", data.restaurant.id);
+            }
+            alert("Logged in successfully!");
+            navigate(role === "owner" ? "/restaurant-menu" : "/restaurants");
+          } else {
+            alert("Login failed.");
+          }
         }
       })
       .catch((err) => {
@@ -65,7 +77,11 @@ export function LoginPage({ setIsLoggedIn, setUserRole }) {
 
   return (
     <div className="auth-page">
-      <PageNav isLoggedIn={false} />
+      <PageNav
+        isLoggedIn={isLoggedIn}
+        userRole={userRole}
+        setIsLoggedIn={setIsLoggedIn}
+      />
 
       <div className="auth-form">
         <h2>
@@ -92,13 +108,28 @@ export function LoginPage({ setIsLoggedIn, setUserRole }) {
         <form onSubmit={handleSubmit}>
           {isRegistering && (
             <>
-              <label>Full Name:</label>
+              <label>{role === "user" ? "Full Name" : "Restaurant Name"}</label>
               <input
                 name="name"
                 type="text"
-                placeholder="Enter your name"
+                placeholder={
+                  role === "user" ? "Enter your name" : "Enter Restaurant Name"
+                }
                 required
               />
+
+              {/*restaurant owner */}
+              {role === "owner" && (
+                <>
+                  <label>Restaurant Location:</label>
+                  <input
+                    name="location"
+                    type="text"
+                    placeholder="Enter restaurant location"
+                    required
+                  />
+                </>
+              )}
             </>
           )}
 
