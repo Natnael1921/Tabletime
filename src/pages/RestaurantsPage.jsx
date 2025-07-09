@@ -109,6 +109,23 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                         }
 
                         try {
+                          // Step 1: Check balance
+                          const balanceRes = await fetch(
+                            `http://localhost:4000/api/balance/${userId}`
+                          );
+                          const balanceData = await balanceRes.json();
+
+                          if (!balanceRes.ok) {
+                            alert("Failed to fetch balance.");
+                            return;
+                          }
+
+                          if (balanceData.balance < item.price) {
+                            alert("Insufficient balance to place this order.");
+                            return;
+                          }
+
+                          // Step 2: Place order
                           console.log("Sending order:", {
                             user_id: userId,
                             menu_item_id: item.id,
@@ -129,7 +146,7 @@ export function RestaurantsPage({ isLoggedIn, handlePlaceOrder, userId }) {
                           );
 
                           const data = await res.json();
-                          if (data.status === "success") {
+                          if (res.ok && data.status === "success") {
                             alert("Order placed!");
                             handlePlaceOrder({
                               id: data.order_id,

@@ -32,6 +32,7 @@ export default function App() {
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
         userRole={userRole}
+        userId={loggedInUser?.id}  
       />
 
       <Routes>
