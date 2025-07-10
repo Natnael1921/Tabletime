@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 export function BalancePopup({ userId, userRole, onClose }) {
   const [balance, setBalance] = useState(0);
@@ -24,7 +25,10 @@ export function BalancePopup({ userId, userRole, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (amount <= 0) return alert("Amount must be greater than zero.");
+    if (amount <= 0) {
+      toast.warn("Amount must be greater than zero.");
+      return;
+    }
 
     const endpoint = isDeposit
       ? `http://localhost:4000/api/balance/${userId}/deposit`
@@ -39,17 +43,17 @@ export function BalancePopup({ userId, userRole, onClose }) {
 
       const data = await res.json();
       if (data.status === "success") {
-        alert(isDeposit ? "Deposit successful!" : "Withdrawal successful!");
+        toast.success(isDeposit ? "Deposit successful!" : "Withdrawal successful!");
         setBalance(
           (prev) => prev + (isDeposit ? Number(amount) : -Number(amount))
         );
         setAmount(0);
       } else {
-        alert("Operation failed.");
+        toast.error("Operation failed.");
       }
     } catch (err) {
       console.error("Error:", err);
-      alert("Something went wrong.");
+      toast.error("Something went wrong.");
     }
   };
 
